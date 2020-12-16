@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prestashop_app
+    #environment:
+     # - PS_DEV_MODE=true
+    ports:
+      - 80:80
+    links:
+      - mysql
+      - mailhog
+    volumes:
+      - prestashop_app:/var/www/html
+      - ../mercadopago:/var/www/html/modules/mercadopago
+    networks:
+      - prestashop_network
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    container_name: prestashop_mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234qwer
+    volumes:
+      - prestashop_db:/var/lib/mysql
+    networks:
+      - prestashop_network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: prestashop_mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - prestashop_network
+
+networks:
+  prestashop_network:
+    driver: bridge
+
+volumes:
+  prestashop_app:
+  prestashop_db:
