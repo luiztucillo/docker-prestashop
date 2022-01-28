@@ -5,32 +5,44 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: prestashop_app
-    environment:
-      - PS_DEV_MODE=true
+    #    environment:
+    #  - PS_DEV_MODE=true
     ports:
       - 80:80
       - 443:443
     links:
-      - mysql
+      # - mysql
       - mailhog
     volumes:
       - prestashop_app:/var/www/html
-      - ../mercadopago:/var/www/html/modules/mercadopago
+      - ./mercadopago:/var/www/html/modules/mercadopago
+      # - ./data/certbot/conf:/etc/letsencrypt
+      # - ./data/certbot/www:/var/www/certbot
+      - /etc/letsencrypt/live/ltucillo.ppolimpo.io/fullchain.pem:/etc/letsencrypt/live/ltucillo.ppolimpo.io/fullchain.pem
+      - /etc/letsencrypt/live/ltucillo.ppolimpo.io/privkey.pem:/etc/letsencrypt/live/ltucillo.ppolimpo.io/privkey.pem
     networks:
       - prestashop_network
 
-  mysql:
-    image: mysql:5.7
-    restart: always
-    container_name: prestashop_mysql
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234qwer
-    volumes:
-      - prestashop_db:/var/lib/mysql
-    networks:
-      - prestashop_network
+  # certbot:
+  #   image: certbot/certbot
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/certbot/conf:/etc/letsencrypt
+  #     - ./data/certbot/www:/var/www/certbot
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  # mysql:
+  #   image: mysql:5.7
+  #   restart: always
+  #   container_name: prestashop_mysql
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 1234qwer
+  #   volumes:
+  #     - prestashop_db:/var/lib/mysql
+  #   networks:
+  #     - prestashop_network
 
   mailhog:
     image: mailhog/mailhog
