@@ -1,1 +1,3 @@
 mercadopago/*
+data/
+.env
