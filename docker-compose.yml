@@ -19,24 +19,22 @@ services:
     volumes:
       - prestashop_app:/var/www/html
       - ./mercadopago:/var/www/html/modules/mercadopago
-      #- /etc/letsencrypt/live/ltucillo.ppolimpo.io/fullchain.pem:/etc/letsencrypt/live/ltucillo.ppolimpo.io/fullchain.pem
-      #- /etc/letsencrypt/live/ltucillo.ppolimpo.io/privkey.pem:/etc/letsencrypt/live/ltucillo.ppolimpo.io/privkey.pem
       - ${CERT_PATH}:${CERT_PATH}
       - ${CERT_KEY_PATH}:${CERT_KEY_PATH}
     networks:
       - prestashop_network
 
-  mysql:
-    image: mysql:5.7
-    container_name: prestashop_mysql
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234qwer
-    volumes:
-      - prestashop_db:/var/lib/mysql
-    networks:
-      - prestashop_network
+  # mysql:
+  #   image: mysql:5.7
+  #   container_name: prestashop_mysql
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: 1234qwer
+  #   volumes:
+  #     - prestashop_db:/var/lib/mysql
+  #   networks:
+  #     - prestashop_network
 
   mailhog:
     image: mailhog/mailhog

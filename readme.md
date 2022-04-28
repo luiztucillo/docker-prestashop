@@ -11,3 +11,5 @@ Este docker utiliza como base o docker oficial do Prestashop, apenas separando a
 3 - No arquivo docker-compose, comente o bloco do mysql caso não precise do banco de dados rodando local
 
 4 - `docker-compose up -d --build` para executar os containers
+
+5 - Em caso de erro de permissões nos arquivos, executar na pasta do docker: `chown -R ubuntu: mercadopago`
