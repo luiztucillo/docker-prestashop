@@ -13,3 +13,5 @@ Este docker utiliza como base o docker oficial do Prestashop, apenas separando a
 4 - `docker-compose up -d --build` para executar os containers
 
 5 - Em caso de erro de permissões nos arquivos, executar na pasta do docker: `chown -R ubuntu: mercadopago`
+
+6 - Depois da instalação, remova a pasta "install" do servidor: `docker exec prestashop_app rm -rf install`
