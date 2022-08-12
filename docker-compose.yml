@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-${PRESTASHOP_VERSION}
       args:
         cert_path: ${CERT_PATH}
         cert_key_path: ${CERT_KEY_PATH}
