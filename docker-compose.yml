@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-${PRESTASHOP_VERSION}
       args:
         cert_path: ${CERT_PATH}
         cert_key_path: ${CERT_KEY_PATH}
@@ -17,6 +17,7 @@ services:
       - mysql
       - mailhog
     volumes:
+      - prestashop_app:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
       - ./mercadopago:/var/www/html/modules/mercadopago
       - ${CERT_PATH}:/certs/cert.pem
@@ -29,6 +30,8 @@ services:
     container_name: prestashop_mysql
     ports:
       - "3306:3306"
+    volumes:
+      - prestashop_db:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234qwer
     networks:
@@ -46,3 +49,7 @@ services:
 networks:
   prestashop_network:
     driver: bridge
+
+volumes:
+  prestashop_app:
+  prestashop_db:
