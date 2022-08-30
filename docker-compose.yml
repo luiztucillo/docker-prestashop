@@ -7,48 +7,42 @@ services:
       args:
         cert_path: ${CERT_PATH}
         cert_key_path: ${CERT_KEY_PATH}
-    container_name: prestashop_app
-    #    environment:
-    #  - PS_DEV_MODE=true
+    container_name: prestashop_app-${PRESTASHOP_VERSION}
+    environment:
+      - PS_DEV_MODE=true
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     links:
-      # - mysql
+      - mysql
       - mailhog
     volumes:
-      - prestashop_app:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
       - ./mercadopago:/var/www/html/modules/mercadopago
-      - ${CERT_PATH}:${CERT_PATH}
-      - ${CERT_KEY_PATH}:${CERT_KEY_PATH}
+      - ${CERT_PATH}:/certs/cert.pem
+      - ${CERT_KEY_PATH}:/certs/cert.key
     networks:
       - prestashop_network
 
-  # mysql:
-  #   image: mysql:5.7
-  #   container_name: prestashop_mysql
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: 1234qwer
-  #   volumes:
-  #     - prestashop_db:/var/lib/mysql
-  #   networks:
-  #     - prestashop_network
+  mysql:
+    image: mysql:5.7
+    container_name: prestashop_mysql-${PRESTASHOP_VERSION}
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234qwer
+    networks:
+      - prestashop_network
 
   mailhog:
     image: mailhog/mailhog
-    container_name: prestashop_mailhog
+    container_name: prestashop_mailhog-${PRESTASHOP_VERSION}
     ports:
-      - 1025:1025
-      - 8025:8025
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - prestashop_network
 
 networks:
   prestashop_network:
     driver: bridge
-
-volumes:
-  prestashop_app:
-  prestashop_db:
