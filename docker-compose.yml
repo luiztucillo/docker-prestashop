@@ -17,7 +17,7 @@ services:
       - mysql
       - mailhog
     volumes:
-      - prestashop_app:/var/www/html
+      - ./src:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
       - ./mercadopago:/var/www/html/modules/mercadopago
       - ${CERT_PATH}:/certs/cert.pem
@@ -51,5 +51,4 @@ networks:
     driver: bridge
 
 volumes:
-  prestashop_app:
   prestashop_db:

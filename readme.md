@@ -35,7 +35,7 @@ To run XDebug you need to set the path mappings.\
 > - Port: 443
 > - Check "Use Path mappings"
 >   - Expand the project folder.
->   - Where there's `index.php` on the left column, put `/var/www/html/index.php` on the right one
+>   - Where there's `src` on the left column, put `/var/www/html` on the right one
 >   - Where there's `mercadopago` on the left column, put `/var/www/html/modules/mercadopago` on the right one
 >
 > 4 - Click `Apply` then `OK`
@@ -51,7 +51,7 @@ To run XDebug you need to set the path mappings.\
 >   "request": "launch",
 >   "port": 9003,
 >   "pathMappings": {
->       "/var/www/html/index.php": "${workspaceRoot}/index.php",
+>       "/var/www/html": "${workspaceRoot}/src",
 >       "/var/www/html/modules/mercadopago": "${workspaceRoot}/mercadopago",
 >   },
 >   "log": true

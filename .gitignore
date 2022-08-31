@@ -1,4 +1,5 @@
 mercadopago/*
+src/*
 data/
 .env
 .idea
