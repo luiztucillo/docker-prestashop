@@ -24,6 +24,9 @@ services:
       - ${CERT_KEY_PATH}:/certs/cert.key
     networks:
       - prestashop_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 
   mysql:
     image: mysql:5.7
