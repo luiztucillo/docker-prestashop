@@ -42,19 +42,28 @@ To run XDebug you need to set the path mappings.\
 
 ### VSCODE
 > 1 - Install de official Xdebug extension. Serach for: `xdebug.php-debug`\
-> 2 - On the top menu click on `Run` then `Add configuration` then select `PHP`\
+> 2 - Go to the `src/modules/mercadopago` folder, on the top menu click on `Run` then `Add configuration` then select `PHP`\
 > 3 - Put the following config on the list:
 > ```
 > {
->   "name": "Listen for Prestashop Docker XDebug",
->   "type": "php",
->   "request": "launch",
->   "port": 9003,
->   "pathMappings": {
->       "/var/www/html": "${workspaceRoot}/src",
->       "/var/www/html/modules/mercadopago": "${workspaceRoot}/mercadopago",
->   },
->   "log": true
-> },
-> 4 - Then on the run tab click `Run`
+>    "version": "0.2.0",
+>    "configurations": [
+>        {
+>            "name": "Debug",
+>            "type": "php",
+>            "request": "launch",
+>            "port": 9003,
+>            "pathMappings": {
+>                "/var/www/html/modules/mercadopago": "${workspaceRoot}",
+>            },
+>            "log": true,
+>            "xdebugSettings": {
+>                "max_data": -1,
+>                "max_children": 128,
+>                "max_depth": 5
+>            },
+>          },
+>    ]
+> }
 > ```
+> 4 - Then on the run tab click `Run`

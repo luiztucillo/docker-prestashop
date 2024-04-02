@@ -19,7 +19,6 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
-      - ./mercadopago:/var/www/html/modules/mercadopago
       - ${CERT_PATH}:/certs/cert.pem
       - ${CERT_KEY_PATH}:/certs/cert.key
     networks:
