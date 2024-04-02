@@ -1,4 +1,4 @@
-FROM prestashop/prestashop:nightly-8.1-apache
+FROM prestashop/prestashop:8.1-apache
 
 ARG cert_path
 ENV CERT_PATH=$cert_path
@@ -9,8 +9,9 @@ ENV CERT_KEY_PATH=$cert_key_path
 RUN apt update && apt install -y vim
 
 # XDEBUG
-RUN pecl install xdebug
-RUN echo zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20210902/xdebug.so >> /usr/local/etc/php/php.ini
+RUN pecl install xdebug-3.1.6 \
+      && docker-php-ext-enable xdebug
+RUN echo zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20190902/xdebug.so >> /usr/local/etc/php/php.ini
 
 # APACHE
 COPY apache/default.conf /etc/apache2/sites-available/000-default.conf
